@@ -4,12 +4,12 @@
 #
 Name     : ksonnet
 Version  : 0.13.1
-Release  : 1
+Release  : 2
 URL      : https://github.com/ksonnet/ksonnet/archive/v0.13.1.tar.gz
 Source0  : https://github.com/ksonnet/ksonnet/archive/v0.13.1.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-3.0 CC-BY-SA-4.0 CDDL-1.0 ISC MIT MPL-2.0-no-copyleft-exception WTFPL
+License  : Apache-2.0 BSD-2-Clause BSD-3-Clause CC-BY-3.0 CC-BY-SA-4.0 CDDL-1.0 ISC MIT MPL-2.0 WTFPL
 Requires: ksonnet-bin = %{version}-%{release}
 Requires: ksonnet-license = %{version}-%{release}
 BuildRequires : buildreq-golang
@@ -38,193 +38,199 @@ license components for the ksonnet package.
 
 %prep
 %setup -q -n ksonnet-0.13.1
+cd %{_builddir}/ksonnet-0.13.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1548729066
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1577732537
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 ## make_prepend content
-export GOPATH=/go
-mkdir -p /go/src/github.com/ksonnet
-ln -s /builddir/build/BUILD/ksonnet-0.13.1 /go/src/github.com/ksonnet/ksonnet
-cd /go/src/github.com/ksonnet/ksonnet
+export GOPATH=$HOME/go
+mkdir -p $HOME/go/src/github.com/ksonnet
+ln -s $HOME/build/BUILD/ksonnet-0.13.1 $HOME/go/src/github.com/ksonnet/ksonnet
+cd $HOME/go/src/github.com/ksonnet/ksonnet
 ## make_prepend end
-make  %{?_smp_mflags} install
+make  %{?_smp_mflags}  install
 
 
 %install
-export SOURCE_DATE_EPOCH=1548729066
+export SOURCE_DATE_EPOCH=1577732537
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ksonnet
-cp LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/LICENSE
-cp vendor/cloud.google.com/go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_cloud.google.com_go_LICENSE
-cp vendor/github.com/Azure/go-ansiterm/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_Azure_go-ansiterm_LICENSE
-cp vendor/github.com/Azure/go-autorest/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_Azure_go-autorest_LICENSE
-cp vendor/github.com/BurntSushi/toml/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_COPYING
-cp vendor/github.com/BurntSushi/toml/cmd/toml-test-decoder/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_cmd_toml-test-decoder_COPYING
-cp vendor/github.com/BurntSushi/toml/cmd/toml-test-encoder/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_cmd_toml-test-encoder_COPYING
-cp vendor/github.com/BurntSushi/toml/cmd/tomlv/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_cmd_tomlv_COPYING
-cp vendor/github.com/GeertJohan/go.rice/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_GeertJohan_go.rice_LICENSE
-cp vendor/github.com/MakeNowJust/heredoc/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_MakeNowJust_heredoc_LICENSE
-cp vendor/github.com/Masterminds/semver/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_Masterminds_semver_LICENSE.txt
-cp vendor/github.com/Masterminds/sprig/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_Masterminds_sprig_LICENSE.txt
-cp vendor/github.com/PuerkitoBio/purell/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_PuerkitoBio_purell_LICENSE
-cp vendor/github.com/PuerkitoBio/urlesc/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_PuerkitoBio_urlesc_LICENSE
-cp vendor/github.com/aokoli/goutils/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_aokoli_goutils_LICENSE.txt
-cp vendor/github.com/asaskevich/govalidator/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_asaskevich_govalidator_LICENSE
-cp vendor/github.com/beorn7/perks/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_beorn7_perks_LICENSE
-cp vendor/github.com/blang/semver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_blang_semver_LICENSE
-cp vendor/github.com/cenkalti/backoff/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_cenkalti_backoff_LICENSE
-cp vendor/github.com/cpuguy83/go-md2man/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_cpuguy83_go-md2man_LICENSE.md
-cp vendor/github.com/daaku/go.zipexe/license %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_daaku_go.zipexe_license
-cp vendor/github.com/davecgh/go-spew/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_davecgh_go-spew_LICENSE
-cp vendor/github.com/dgrijalva/jwt-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_dgrijalva_jwt-go_LICENSE
-cp vendor/github.com/docker/distribution/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_distribution_LICENSE
-cp vendor/github.com/docker/docker/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_LICENSE
-cp vendor/github.com/docker/docker/NOTICE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_NOTICE
-cp vendor/github.com/docker/docker/contrib/syntax/vim/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_contrib_syntax_vim_LICENSE
-cp vendor/github.com/docker/docker/pkg/symlink/LICENSE.APACHE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_pkg_symlink_LICENSE.APACHE
-cp vendor/github.com/docker/docker/pkg/symlink/LICENSE.BSD %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_pkg_symlink_LICENSE.BSD
-cp vendor/github.com/docker/go-connections/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_go-connections_LICENSE
-cp vendor/github.com/docker/go-units/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_go-units_LICENSE
-cp vendor/github.com/docker/spdystream/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_spdystream_LICENSE
-cp vendor/github.com/docker/spdystream/LICENSE.docs %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_docker_spdystream_LICENSE.docs
-cp vendor/github.com/emicklei/go-restful-swagger12/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_emicklei_go-restful-swagger12_LICENSE
-cp vendor/github.com/emicklei/go-restful/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_emicklei_go-restful_LICENSE
-cp vendor/github.com/evanphx/json-patch/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_evanphx_json-patch_LICENSE
-cp vendor/github.com/exponent-io/jsonpath/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_exponent-io_jsonpath_LICENSE
-cp vendor/github.com/fatih/camelcase/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_fatih_camelcase_LICENSE.md
-cp vendor/github.com/fatih/color/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_fatih_color_LICENSE.md
-cp vendor/github.com/fsnotify/fsnotify/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_fsnotify_fsnotify_LICENSE
-cp vendor/github.com/ghodss/yaml/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_ghodss_yaml_LICENSE
-cp vendor/github.com/go-openapi/analysis/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_analysis_LICENSE
-cp vendor/github.com/go-openapi/errors/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_errors_LICENSE
-cp vendor/github.com/go-openapi/jsonpointer/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_jsonpointer_LICENSE
-cp vendor/github.com/go-openapi/jsonreference/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_jsonreference_LICENSE
-cp vendor/github.com/go-openapi/loads/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_loads_LICENSE
-cp vendor/github.com/go-openapi/runtime/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_runtime_LICENSE
-cp vendor/github.com/go-openapi/runtime/middleware/denco/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_runtime_middleware_denco_LICENSE
-cp vendor/github.com/go-openapi/spec/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_spec_LICENSE
-cp vendor/github.com/go-openapi/spec/license.go %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_spec_license.go
-cp vendor/github.com/go-openapi/strfmt/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_strfmt_LICENSE
-cp vendor/github.com/go-openapi/swag/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_swag_LICENSE
-cp vendor/github.com/go-openapi/validate/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_validate_LICENSE
-cp vendor/github.com/gobwas/glob/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_gobwas_glob_LICENSE
-cp vendor/github.com/gogo/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_gogo_protobuf_LICENSE
-cp vendor/github.com/golang/glog/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_golang_glog_LICENSE
-cp vendor/github.com/golang/groupcache/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_golang_groupcache_LICENSE
-cp vendor/github.com/golang/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_golang_protobuf_LICENSE
-cp vendor/github.com/google/btree/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_google_btree_LICENSE
-cp vendor/github.com/google/go-github/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_google_go-github_LICENSE
-cp vendor/github.com/google/go-jsonnet/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_google_go-jsonnet_LICENSE
-cp vendor/github.com/google/go-querystring/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_google_go-querystring_LICENSE
-cp vendor/github.com/google/gofuzz/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_google_gofuzz_LICENSE
-cp vendor/github.com/google/uuid/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_google_uuid_LICENSE
-cp vendor/github.com/googleapis/gnostic/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_googleapis_gnostic_LICENSE
-cp vendor/github.com/gophercloud/gophercloud/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_gophercloud_gophercloud_LICENSE
-cp vendor/github.com/gregjones/httpcache/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_gregjones_httpcache_LICENSE.txt
-cp vendor/github.com/hashicorp/golang-lru/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_hashicorp_golang-lru_LICENSE
-cp vendor/github.com/hashicorp/hcl/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_hashicorp_hcl_LICENSE
-cp vendor/github.com/howeyc/gopass/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_howeyc_gopass_LICENSE.txt
-cp vendor/github.com/howeyc/gopass/OPENSOLARIS.LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_howeyc_gopass_OPENSOLARIS.LICENSE
-cp vendor/github.com/huandu/xstrings/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_huandu_xstrings_LICENSE
-cp vendor/github.com/imdario/mergo/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_imdario_mergo_LICENSE
-cp vendor/github.com/inconshreveable/mousetrap/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_inconshreveable_mousetrap_LICENSE
-cp vendor/github.com/jonboulle/clockwork/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_jonboulle_clockwork_LICENSE
-cp vendor/github.com/json-iterator/go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_json-iterator_go_LICENSE
-cp vendor/github.com/kardianos/osext/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_kardianos_osext_LICENSE
-cp vendor/github.com/ksonnet/ksonnet-lib/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_ksonnet_ksonnet-lib_LICENSE
-cp vendor/github.com/magiconair/properties/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_magiconair_properties_LICENSE
-cp vendor/github.com/mailru/easyjson/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_mailru_easyjson_LICENSE
-cp vendor/github.com/mattn/go-colorable/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_mattn_go-colorable_LICENSE
-cp vendor/github.com/mattn/go-isatty/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_mattn_go-isatty_LICENSE
-cp vendor/github.com/matttproud/golang_protobuf_extensions/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_matttproud_golang_protobuf_extensions_LICENSE
-cp vendor/github.com/mitchellh/go-wordwrap/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_mitchellh_go-wordwrap_LICENSE.md
-cp vendor/github.com/mitchellh/mapstructure/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_mitchellh_mapstructure_LICENSE
-cp vendor/github.com/modern-go/concurrent/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_modern-go_concurrent_LICENSE
-cp vendor/github.com/modern-go/reflect2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_modern-go_reflect2_LICENSE
-cp vendor/github.com/onsi/ginkgo/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_ginkgo_LICENSE
-cp vendor/github.com/onsi/ginkgo/reporters/stenographer/support/go-colorable/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_ginkgo_reporters_stenographer_support_go-colorable_LICENSE
-cp vendor/github.com/onsi/ginkgo/reporters/stenographer/support/go-isatty/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_ginkgo_reporters_stenographer_support_go-isatty_LICENSE
-cp vendor/github.com/onsi/gomega/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_gomega_LICENSE
-cp vendor/github.com/opencontainers/go-digest/LICENSE.code %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_opencontainers_go-digest_LICENSE.code
-cp vendor/github.com/opencontainers/go-digest/LICENSE.docs %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_opencontainers_go-digest_LICENSE.docs
-cp vendor/github.com/opencontainers/image-spec/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_opencontainers_image-spec_LICENSE
-cp vendor/github.com/pborman/uuid/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_pborman_uuid_LICENSE
-cp vendor/github.com/pelletier/go-toml/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_pelletier_go-toml_LICENSE
-cp vendor/github.com/petar/GoLLRB/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_petar_GoLLRB_LICENSE
-cp vendor/github.com/peterbourgon/diskv/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_peterbourgon_diskv_LICENSE
-cp vendor/github.com/pkg/errors/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_pkg_errors_LICENSE
-cp vendor/github.com/pmezard/go-difflib/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_pmezard_go-difflib_LICENSE
-cp vendor/github.com/prometheus/client_golang/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_golang_LICENSE
-cp vendor/github.com/prometheus/client_golang/NOTICE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_golang_NOTICE
-cp vendor/github.com/prometheus/client_model/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_model_LICENSE
-cp vendor/github.com/prometheus/client_model/ruby/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_model_ruby_LICENSE
-cp vendor/github.com/prometheus/common/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_common_LICENSE
-cp vendor/github.com/prometheus/procfs/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_procfs_LICENSE
-cp vendor/github.com/russross/blackfriday/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_russross_blackfriday_LICENSE.txt
-cp vendor/github.com/shazow/go-diff/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_shazow_go-diff_LICENSE
-cp vendor/github.com/sirupsen/logrus/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_sirupsen_logrus_LICENSE
-cp vendor/github.com/spf13/afero/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_afero_LICENSE.txt
-cp vendor/github.com/spf13/cast/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_cast_LICENSE
-cp vendor/github.com/spf13/cobra/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_cobra_LICENSE.txt
-cp vendor/github.com/spf13/cobra/cobra/cmd/testdata/LICENSE.golden %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_cobra_cobra_cmd_testdata_LICENSE.golden
-cp vendor/github.com/spf13/jwalterweatherman/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_jwalterweatherman_LICENSE
-cp vendor/github.com/spf13/pflag/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_pflag_LICENSE
-cp vendor/github.com/spf13/viper/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_viper_LICENSE
-cp vendor/github.com/stretchr/objx/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_stretchr_objx_LICENSE
-cp vendor/github.com/stretchr/testify/LICENCE.txt %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_stretchr_testify_LICENCE.txt
-cp vendor/github.com/stretchr/testify/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_github.com_stretchr_testify_LICENSE
-cp vendor/golang.org/x/crypto/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_golang.org_x_crypto_LICENSE
-cp vendor/golang.org/x/net/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_golang.org_x_net_LICENSE
-cp vendor/golang.org/x/oauth2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_golang.org_x_oauth2_LICENSE
-cp vendor/golang.org/x/sys/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_golang.org_x_sys_LICENSE
-cp vendor/golang.org/x/text/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_golang.org_x_text_LICENSE
-cp vendor/golang.org/x/time/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_golang.org_x_time_LICENSE
-cp vendor/google.golang.org/appengine/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_google.golang.org_appengine_LICENSE
-cp vendor/gopkg.in/inf.v0/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_inf.v0_LICENSE
-cp vendor/gopkg.in/mgo.v2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_mgo.v2_LICENSE
-cp vendor/gopkg.in/mgo.v2/bson/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_mgo.v2_bson_LICENSE
-cp vendor/gopkg.in/mgo.v2/internal/json/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_mgo.v2_internal_json_LICENSE
-cp vendor/gopkg.in/square/go-jose.v2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_square_go-jose.v2_LICENSE
-cp vendor/gopkg.in/square/go-jose.v2/json/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_square_go-jose.v2_json_LICENSE
-cp vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_yaml.v2_LICENSE
-cp vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/package-licenses/ksonnet/vendor_gopkg.in_yaml.v2_LICENSE.libyaml
-cp vendor/k8s.io/api/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_api_LICENSE
-cp vendor/k8s.io/apiextensions-apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_apiextensions-apiserver_LICENSE
-cp vendor/k8s.io/apimachinery/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_apimachinery_LICENSE
-cp vendor/k8s.io/apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_apiserver_LICENSE
-cp vendor/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_client-go_LICENSE
-cp vendor/k8s.io/helm/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_helm_LICENSE
-cp vendor/k8s.io/kube-openapi/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kube-openapi_LICENSE
-cp vendor/k8s.io/kubernetes/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_LICENSE
-cp vendor/k8s.io/kubernetes/cluster/juju/layers/kubeapi-load-balancer/copyright %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_cluster_juju_layers_kubeapi-load-balancer_copyright
-cp vendor/k8s.io/kubernetes/cluster/juju/layers/kubernetes-master/copyright %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_cluster_juju_layers_kubernetes-master_copyright
-cp vendor/k8s.io/kubernetes/cluster/juju/layers/kubernetes-worker/copyright %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_cluster_juju_layers_kubernetes-worker_copyright
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/api/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_api_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_apiextensions-apiserver_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/apimachinery/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_apimachinery_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_apiserver_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_client-go_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/code-generator/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_code-generator_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/kube-aggregator/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_kube-aggregator_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/metrics/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_metrics_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/sample-apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_sample-apiserver_LICENSE
-cp vendor/k8s.io/kubernetes/staging/src/k8s.io/sample-controller/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_sample-controller_LICENSE
-cp vendor/k8s.io/kubernetes/third_party/forked/golang/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_forked_golang_LICENSE
-cp vendor/k8s.io/kubernetes/third_party/forked/gonum/graph/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_forked_gonum_graph_LICENSE
-cp vendor/k8s.io/kubernetes/third_party/forked/shell2junit/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_forked_shell2junit_LICENSE
-cp vendor/k8s.io/kubernetes/third_party/htpasswd/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_htpasswd_COPYING
-cp vendor/k8s.io/kubernetes/third_party/intemp/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_intemp_LICENSE
-cp vendor/k8s.io/kubernetes/third_party/swagger-ui/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_swagger-ui_LICENSE
-cp vendor/k8s.io/utils/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_k8s.io_utils_LICENSE
-cp vendor/vbom.ml/util/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/vendor_vbom.ml_util_LICENSE
+cp %{_builddir}/ksonnet-0.13.1/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/ksonnet-0.13.1/vendor/cloud.google.com/go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/Azure/go-ansiterm/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/836ef1b46953afdb78ce3929bc6831ca83620b65
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/Azure/go-autorest/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/308c47a3ea356402d2d14241da9a9f64cf404008
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/BurntSushi/toml/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/568dd3613cf8145e8dbb35eeb920bd7d0c662b44
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/BurntSushi/toml/cmd/toml-test-decoder/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/568dd3613cf8145e8dbb35eeb920bd7d0c662b44
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/BurntSushi/toml/cmd/toml-test-encoder/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/568dd3613cf8145e8dbb35eeb920bd7d0c662b44
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/BurntSushi/toml/cmd/tomlv/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/568dd3613cf8145e8dbb35eeb920bd7d0c662b44
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/GeertJohan/go.rice/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/fe475fbde1c0d4275b3a57960998c70605a9c860
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/MakeNowJust/heredoc/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/43c02fe811dfc96363cdd8ec756ecc728ab845a9
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/Masterminds/semver/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/19faac93bab978326d06e3b96bbf41d495ce2a51
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/Masterminds/sprig/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/239eb7b8270d659c1316e04c7081921142226198
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/PuerkitoBio/purell/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/33cd8e150548e595fbe201c6ca9df582976e71db
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/PuerkitoBio/urlesc/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7f7a12bcfc16fab2522aa1a562fd3d2aee429d3b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/aokoli/goutils/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/asaskevich/govalidator/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/f0524399083fa802c72bc733a5e12ed1342c650f
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/beorn7/perks/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/b2e4520feb0f9b51ad373256b94c3faf4c1e6871
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/blang/semver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/16e22f58039363cff486afeac52bde18cd4ab5b3
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/cenkalti/backoff/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/101c182fa18fd56a09164278f17e4282264c5e9e
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/cpuguy83/go-md2man/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/b7a606730713ac061594edab33cf941704b4a95c
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/daaku/go.zipexe/license %{buildroot}/usr/share/package-licenses/ksonnet/87483fe9431794365787a1650194a441211dac98
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/davecgh/go-spew/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/0e9ad2a801d95231296b0b613db53147258260b1
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/dgrijalva/jwt-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/b132e03c6b6bd85fbc2394f808acae8f5d0ebaf0
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/distribution/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/c700a8b9312d24bdc57570f7d6a131cf63d89016
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/docker/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/878e7d86573d6c8ff65d2eaab294734b3f4d3d81
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/docker/NOTICE %{buildroot}/usr/share/package-licenses/ksonnet/ea2531724c168e1e53717622d1bf302554225f2b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/docker/contrib/syntax/vim/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/cc299c1fe1c186e7842662c4e23d4fa067262be1
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/docker/pkg/symlink/LICENSE.APACHE %{buildroot}/usr/share/package-licenses/ksonnet/a71b5152bb7c0d188273009e050644a6788d4d4c
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/docker/pkg/symlink/LICENSE.BSD %{buildroot}/usr/share/package-licenses/ksonnet/bb8bbeae44ef2e1eb6f8fec601a6234d4c5a51f7
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/go-connections/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/3110e55750143a84918d7423febc9c83a55bc28c
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/go-units/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/3110e55750143a84918d7423febc9c83a55bc28c
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/spdystream/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/c6821d75aac4a65fae7d56a425e304beb3689c26
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/docker/spdystream/LICENSE.docs %{buildroot}/usr/share/package-licenses/ksonnet/979fd7d5c67073b265d96f584aac3de1c419b8e2
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/emicklei/go-restful-swagger12/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5bcdae4a54b3911be6b53a1d85f90f25dde5207e
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/emicklei/go-restful/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/a8993f4a51771a0333dbbc5b1c4395a2ccaa4d9f
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/evanphx/json-patch/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/773bfa66739275c14ad854cdef4f550973fbaee6
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/exponent-io/jsonpath/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9a06b8c36ca519c5a7c67f102bf5d03aae470fa1
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/fatih/camelcase/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/2afef5b6ec0b4453f0b1d7afac0b97168620aa84
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/fatih/color/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/563519fec7769aaec054ee06cb429f39f0fdab89
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/fsnotify/fsnotify/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7b421b3d8f9fe9dc8158b5e6efed1c448605ba92
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/ghodss/yaml/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/271aeaf56ee621c5accfc2a9db0b10717e038eaf
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/analysis/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/errors/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/jsonpointer/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/jsonreference/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/loads/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/runtime/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/runtime/middleware/denco/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/48c378c760084a10ecfdab86c88abf1707b06741
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/spec/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/spec/license.go %{buildroot}/usr/share/package-licenses/ksonnet/555e9ac61d94352b3c2935e77b51fc6dc31d4822
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/strfmt/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/swag/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/go-openapi/validate/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/gobwas/glob/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/1b2d963c77ddfc6454ca369fc4884e87e256a2e1
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/gogo/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/ec6b8f412493dc8f603dd5547e50922205432492
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/golang/glog/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/172ca3bbafe312a1cf09cfff26953db2f425c28e
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/golang/groupcache/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/172ca3bbafe312a1cf09cfff26953db2f425c28e
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/golang/protobuf/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9d6e7962016b087c7c6c7b485f84aca70fe93242
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/google/btree/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/google/go-github/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/d9eee7661376514dccfc36e54c538dd2bdcd3535
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/google/go-jsonnet/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/google/go-querystring/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5d833085cd09e0a70fe9071b1f2edf6d31b91d45
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/google/gofuzz/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/google/uuid/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/08021ae73f58f423dd6e7b525e81cf2520f7619e
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/googleapis/gnostic/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5a7d7df655ba40478fae80a6abafc6afc36f9b6a
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/gophercloud/gophercloud/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/01e537267fca176b08cd25a4e6e6a7092ed3c734
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/gregjones/httpcache/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/21b9915e693e6d81b3908c83fb59687aec46029b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/hashicorp/golang-lru/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/ece3df1263c100f93c427face535a292723d38e7
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/hashicorp/hcl/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/523489384296f403da31edf8edf6f9023d328517
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/howeyc/gopass/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/a1e7a3c2784eb9d439cdd9d6da08d1401196b957
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/howeyc/gopass/OPENSOLARIS.LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5bda8696dcdc953ed09277c9e761e4c9c8cd44d6
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/huandu/xstrings/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/8758b52c623c08eff9cadbd0f0e1541085e9984d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/imdario/mergo/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/eecfc0c7e0930c6ba1ed0ff2d46a0a6fa0d16d6c
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/inconshreveable/mousetrap/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9174f93c54ad0022bbb9b445480cfb6b4217226a
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/jonboulle/clockwork/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92a74693f02c8e78dd90b2014c52bc35a95bab86
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/json-iterator/go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/810612ee8c1872b7ee4dba34c090ebd8f7491aa1
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/kardianos/osext/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7f7a12bcfc16fab2522aa1a562fd3d2aee429d3b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/ksonnet/ksonnet-lib/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/magiconair/properties/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/20d7220031a3670d7696be5330ebae9f49861d3b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/mailru/easyjson/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/554fb441fbb1607579b7c9f8e9d7fab5d00e3a51
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/mattn/go-colorable/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5ca808f075931c5322193d4afd5a3370c824f810
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/mattn/go-isatty/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5b53018d7f0706e49275a92d36b54cfbfbb71367
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/matttproud/golang_protobuf_extensions/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/mitchellh/go-wordwrap/LICENSE.md %{buildroot}/usr/share/package-licenses/ksonnet/d676a57141ac47c27699fc8b03e1a2e59abb96ef
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/mitchellh/mapstructure/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5ad2002bc8d2b22e2034867d159f71ba6258e18f
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/modern-go/concurrent/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/modern-go/reflect2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/onsi/ginkgo/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9f1b6690bcfc732123ae209c90c62f2ba80dfcb0
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/onsi/ginkgo/reporters/stenographer/support/go-colorable/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5ca808f075931c5322193d4afd5a3370c824f810
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/onsi/ginkgo/reporters/stenographer/support/go-isatty/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5b53018d7f0706e49275a92d36b54cfbfbb71367
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/onsi/gomega/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9f1b6690bcfc732123ae209c90c62f2ba80dfcb0
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/opencontainers/go-digest/LICENSE.code %{buildroot}/usr/share/package-licenses/ksonnet/76a37a42a06aa6e231383fb93d9161f074d5962b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/opencontainers/go-digest/LICENSE.docs %{buildroot}/usr/share/package-licenses/ksonnet/979fd7d5c67073b265d96f584aac3de1c419b8e2
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/opencontainers/image-spec/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/298850a6cdb155f54cfa44641df70b36228ed031
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/pborman/uuid/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/08021ae73f58f423dd6e7b525e81cf2520f7619e
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/pelletier/go-toml/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/cba29923f92249281f98723c1294f9b2546c50b0
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/petar/GoLLRB/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/220241a029c9c3e01abf6bcd6ad9602d581c2b7b
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/peterbourgon/diskv/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/87a1773b9070fa0f9d4033df28f9bcba336279b1
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/pkg/errors/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9c1bedc0d42f24c24a1bd266f3ce101a4b0579fc
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/pmezard/go-difflib/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/cd3e4d932cee20da681e6b3bee8139cb4f734034
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/prometheus/client_golang/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/prometheus/client_golang/NOTICE %{buildroot}/usr/share/package-licenses/ksonnet/fd6460234f122a19f21affb6d6885269340b9176
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/prometheus/client_model/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/prometheus/client_model/ruby/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5feaf15b3fa7d2d226d811e5fcd49098a1ea520c
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/prometheus/common/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/prometheus/procfs/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/russross/blackfriday/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/da34754c05d40ff81f91de8c1b85ea6e5503e21d
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/shazow/go-diff/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/6643b21ca08acb470f631647b8ded5a538a1ee26
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/sirupsen/logrus/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/a1c7852c717fed2c9a0284ed112ea66013230da6
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/afero/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/c7feacb4667f8c63c89e2eeeb9a913bd3ced8ac2
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/cast/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/feb9285b75d0c82a47d32e7d4dc84eb02db9ee34
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/cobra/LICENSE.txt %{buildroot}/usr/share/package-licenses/ksonnet/c7feacb4667f8c63c89e2eeeb9a913bd3ced8ac2
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/cobra/cobra/cmd/testdata/LICENSE.golden %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/jwalterweatherman/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/feb9285b75d0c82a47d32e7d4dc84eb02db9ee34
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/pflag/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/b3c86ae465b21f7323059db335158b48187731c7
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/spf13/viper/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/feb9285b75d0c82a47d32e7d4dc84eb02db9ee34
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/stretchr/objx/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9d0e87d9ac5974470fc21c575854718e8b6516be
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/stretchr/testify/LICENCE.txt %{buildroot}/usr/share/package-licenses/ksonnet/5e630aeef4ff3e9b29a46622496b3fbbf5d7fe56
+cp %{_builddir}/ksonnet-0.13.1/vendor/github.com/stretchr/testify/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/5e630aeef4ff3e9b29a46622496b3fbbf5d7fe56
+cp %{_builddir}/ksonnet-0.13.1/vendor/golang.org/x/crypto/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/ksonnet-0.13.1/vendor/golang.org/x/net/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/ksonnet-0.13.1/vendor/golang.org/x/oauth2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/52cf7289ad0e363a3e0e90fa86b9c294f980696c
+cp %{_builddir}/ksonnet-0.13.1/vendor/golang.org/x/sys/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/ksonnet-0.13.1/vendor/golang.org/x/text/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/ksonnet-0.13.1/vendor/golang.org/x/time/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+cp %{_builddir}/ksonnet-0.13.1/vendor/google.golang.org/appengine/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/inf.v0/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/580c0a1f1386fe13bce395d23bdaf3b14ae2e20b
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/mgo.v2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9f288d8b22648404d58f00d5e7f6f0d746836182
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/mgo.v2/bson/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/6b003b30f7a30a203efcf0307e47ea4fca894e6e
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/mgo.v2/internal/json/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7f7a12bcfc16fab2522aa1a562fd3d2aee429d3b
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/square/go-jose.v2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/square/go-jose.v2/json/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7f7a12bcfc16fab2522aa1a562fd3d2aee429d3b
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/yaml.v2/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/ksonnet-0.13.1/vendor/gopkg.in/yaml.v2/LICENSE.libyaml %{buildroot}/usr/share/package-licenses/ksonnet/ad00ce7340d89dc13ccc59920ef75cb55af5b164
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/api/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/apiextensions-apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/apimachinery/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/helm/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/e625f9555286c04d831ffbaf5b27a8668f1aa1a7
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kube-openapi/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/cluster/juju/layers/kubeapi-load-balancer/copyright %{buildroot}/usr/share/package-licenses/ksonnet/a0c1567b52d722c1db277d5c046f0f74a2d0cdb1
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/cluster/juju/layers/kubernetes-master/copyright %{buildroot}/usr/share/package-licenses/ksonnet/56e79701db832ea0a78069c9ff7204c6e5d4499d
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/cluster/juju/layers/kubernetes-worker/copyright %{buildroot}/usr/share/package-licenses/ksonnet/a0c1567b52d722c1db277d5c046f0f74a2d0cdb1
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/api/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/apimachinery/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/code-generator/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/kube-aggregator/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/metrics/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/sample-apiserver/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/staging/src/k8s.io/sample-controller/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/third_party/forked/golang/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/7f7a12bcfc16fab2522aa1a562fd3d2aee429d3b
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/third_party/forked/gonum/graph/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/10a1514324a7532df8dbfec34898595caad63c97
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/third_party/forked/shell2junit/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/571ff79d612fa3127682f13cce9d20870b91ca9a
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/third_party/htpasswd/COPYING %{buildroot}/usr/share/package-licenses/ksonnet/e0805207f70fad080994fd9f55016f0bf56b933f
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/third_party/intemp/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/third_party/swagger-ui/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/9b7d86786391d922ec95d85852f57f6868d8e16d
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/utils/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/vbom.ml/util/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/8a40bfb169d0050621b1dc706311e3fd62ec65eb
 true
 ## install_append content
 install -d %{buildroot}/usr/bin
-install -p -m 755 /go/bin/ks %{buildroot}/usr/bin/ks
+install -p -m 755 $HOME/go/bin/ks %{buildroot}/usr/bin/ks
 ## install_append end
 
 %files
@@ -236,166 +242,99 @@ install -p -m 755 /go/bin/ks %{buildroot}/usr/bin/ks
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/ksonnet/LICENSE
-/usr/share/package-licenses/ksonnet/vendor_cloud.google.com_go_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_Azure_go-ansiterm_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_Azure_go-autorest_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_COPYING
-/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_cmd_toml-test-decoder_COPYING
-/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_cmd_toml-test-encoder_COPYING
-/usr/share/package-licenses/ksonnet/vendor_github.com_BurntSushi_toml_cmd_tomlv_COPYING
-/usr/share/package-licenses/ksonnet/vendor_github.com_GeertJohan_go.rice_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_MakeNowJust_heredoc_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_Masterminds_semver_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_Masterminds_sprig_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_PuerkitoBio_purell_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_PuerkitoBio_urlesc_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_aokoli_goutils_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_asaskevich_govalidator_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_beorn7_perks_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_blang_semver_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_cenkalti_backoff_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_cpuguy83_go-md2man_LICENSE.md
-/usr/share/package-licenses/ksonnet/vendor_github.com_daaku_go.zipexe_license
-/usr/share/package-licenses/ksonnet/vendor_github.com_davecgh_go-spew_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_dgrijalva_jwt-go_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_distribution_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_NOTICE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_contrib_syntax_vim_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_pkg_symlink_LICENSE.APACHE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_docker_pkg_symlink_LICENSE.BSD
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_go-connections_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_go-units_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_spdystream_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_docker_spdystream_LICENSE.docs
-/usr/share/package-licenses/ksonnet/vendor_github.com_emicklei_go-restful-swagger12_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_emicklei_go-restful_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_evanphx_json-patch_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_exponent-io_jsonpath_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_fatih_camelcase_LICENSE.md
-/usr/share/package-licenses/ksonnet/vendor_github.com_fatih_color_LICENSE.md
-/usr/share/package-licenses/ksonnet/vendor_github.com_fsnotify_fsnotify_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_ghodss_yaml_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_analysis_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_errors_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_jsonpointer_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_jsonreference_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_loads_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_runtime_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_runtime_middleware_denco_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_spec_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_spec_license.go
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_strfmt_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_swag_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_go-openapi_validate_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_gobwas_glob_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_gogo_protobuf_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_golang_glog_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_golang_groupcache_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_golang_protobuf_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_google_btree_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_google_go-github_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_google_go-jsonnet_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_google_go-querystring_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_google_gofuzz_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_google_uuid_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_googleapis_gnostic_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_gophercloud_gophercloud_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_gregjones_httpcache_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_hashicorp_golang-lru_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_hashicorp_hcl_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_howeyc_gopass_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_howeyc_gopass_OPENSOLARIS.LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_huandu_xstrings_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_imdario_mergo_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_inconshreveable_mousetrap_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_jonboulle_clockwork_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_json-iterator_go_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_kardianos_osext_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_ksonnet_ksonnet-lib_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_magiconair_properties_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_mailru_easyjson_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_mattn_go-colorable_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_mattn_go-isatty_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_matttproud_golang_protobuf_extensions_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_mitchellh_go-wordwrap_LICENSE.md
-/usr/share/package-licenses/ksonnet/vendor_github.com_mitchellh_mapstructure_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_modern-go_concurrent_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_modern-go_reflect2_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_ginkgo_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_ginkgo_reporters_stenographer_support_go-colorable_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_ginkgo_reporters_stenographer_support_go-isatty_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_onsi_gomega_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_opencontainers_go-digest_LICENSE.code
-/usr/share/package-licenses/ksonnet/vendor_github.com_opencontainers_go-digest_LICENSE.docs
-/usr/share/package-licenses/ksonnet/vendor_github.com_opencontainers_image-spec_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_pborman_uuid_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_pelletier_go-toml_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_petar_GoLLRB_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_peterbourgon_diskv_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_pkg_errors_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_pmezard_go-difflib_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_golang_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_golang_NOTICE
-/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_model_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_client_model_ruby_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_common_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_prometheus_procfs_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_russross_blackfriday_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_shazow_go-diff_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_sirupsen_logrus_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_afero_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_cast_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_cobra_LICENSE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_cobra_cobra_cmd_testdata_LICENSE.golden
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_jwalterweatherman_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_pflag_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_spf13_viper_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_stretchr_objx_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_github.com_stretchr_testify_LICENCE.txt
-/usr/share/package-licenses/ksonnet/vendor_github.com_stretchr_testify_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_golang.org_x_crypto_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_golang.org_x_net_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_golang.org_x_oauth2_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_golang.org_x_sys_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_golang.org_x_text_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_golang.org_x_time_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_google.golang.org_appengine_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_inf.v0_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_mgo.v2_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_mgo.v2_bson_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_mgo.v2_internal_json_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_square_go-jose.v2_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_square_go-jose.v2_json_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_yaml.v2_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_gopkg.in_yaml.v2_LICENSE.libyaml
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_api_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_apiextensions-apiserver_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_apimachinery_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_apiserver_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_client-go_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_helm_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kube-openapi_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_cluster_juju_layers_kubeapi-load-balancer_copyright
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_cluster_juju_layers_kubernetes-master_copyright
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_cluster_juju_layers_kubernetes-worker_copyright
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_api_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_apiextensions-apiserver_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_apimachinery_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_apiserver_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_client-go_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_code-generator_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_kube-aggregator_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_metrics_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_sample-apiserver_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_staging_src_k8s.io_sample-controller_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_forked_golang_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_forked_gonum_graph_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_forked_shell2junit_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_htpasswd_COPYING
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_intemp_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_kubernetes_third_party_swagger-ui_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_k8s.io_utils_LICENSE
-/usr/share/package-licenses/ksonnet/vendor_vbom.ml_util_LICENSE
+/usr/share/package-licenses/ksonnet/01e537267fca176b08cd25a4e6e6a7092ed3c734
+/usr/share/package-licenses/ksonnet/08021ae73f58f423dd6e7b525e81cf2520f7619e
+/usr/share/package-licenses/ksonnet/0e9ad2a801d95231296b0b613db53147258260b1
+/usr/share/package-licenses/ksonnet/101c182fa18fd56a09164278f17e4282264c5e9e
+/usr/share/package-licenses/ksonnet/10a1514324a7532df8dbfec34898595caad63c97
+/usr/share/package-licenses/ksonnet/16e22f58039363cff486afeac52bde18cd4ab5b3
+/usr/share/package-licenses/ksonnet/172ca3bbafe312a1cf09cfff26953db2f425c28e
+/usr/share/package-licenses/ksonnet/19faac93bab978326d06e3b96bbf41d495ce2a51
+/usr/share/package-licenses/ksonnet/1b2d963c77ddfc6454ca369fc4884e87e256a2e1
+/usr/share/package-licenses/ksonnet/20d7220031a3670d7696be5330ebae9f49861d3b
+/usr/share/package-licenses/ksonnet/21b9915e693e6d81b3908c83fb59687aec46029b
+/usr/share/package-licenses/ksonnet/220241a029c9c3e01abf6bcd6ad9602d581c2b7b
+/usr/share/package-licenses/ksonnet/239eb7b8270d659c1316e04c7081921142226198
+/usr/share/package-licenses/ksonnet/271aeaf56ee621c5accfc2a9db0b10717e038eaf
+/usr/share/package-licenses/ksonnet/298850a6cdb155f54cfa44641df70b36228ed031
+/usr/share/package-licenses/ksonnet/2afef5b6ec0b4453f0b1d7afac0b97168620aa84
+/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+/usr/share/package-licenses/ksonnet/308c47a3ea356402d2d14241da9a9f64cf404008
+/usr/share/package-licenses/ksonnet/3110e55750143a84918d7423febc9c83a55bc28c
+/usr/share/package-licenses/ksonnet/33cd8e150548e595fbe201c6ca9df582976e71db
+/usr/share/package-licenses/ksonnet/43c02fe811dfc96363cdd8ec756ecc728ab845a9
+/usr/share/package-licenses/ksonnet/48c378c760084a10ecfdab86c88abf1707b06741
+/usr/share/package-licenses/ksonnet/523489384296f403da31edf8edf6f9023d328517
+/usr/share/package-licenses/ksonnet/52cf7289ad0e363a3e0e90fa86b9c294f980696c
+/usr/share/package-licenses/ksonnet/554fb441fbb1607579b7c9f8e9d7fab5d00e3a51
+/usr/share/package-licenses/ksonnet/555e9ac61d94352b3c2935e77b51fc6dc31d4822
+/usr/share/package-licenses/ksonnet/563519fec7769aaec054ee06cb429f39f0fdab89
+/usr/share/package-licenses/ksonnet/568dd3613cf8145e8dbb35eeb920bd7d0c662b44
+/usr/share/package-licenses/ksonnet/56e79701db832ea0a78069c9ff7204c6e5d4499d
+/usr/share/package-licenses/ksonnet/571ff79d612fa3127682f13cce9d20870b91ca9a
+/usr/share/package-licenses/ksonnet/580c0a1f1386fe13bce395d23bdaf3b14ae2e20b
+/usr/share/package-licenses/ksonnet/5a7d7df655ba40478fae80a6abafc6afc36f9b6a
+/usr/share/package-licenses/ksonnet/5ad2002bc8d2b22e2034867d159f71ba6258e18f
+/usr/share/package-licenses/ksonnet/5b53018d7f0706e49275a92d36b54cfbfbb71367
+/usr/share/package-licenses/ksonnet/5bcdae4a54b3911be6b53a1d85f90f25dde5207e
+/usr/share/package-licenses/ksonnet/5bda8696dcdc953ed09277c9e761e4c9c8cd44d6
+/usr/share/package-licenses/ksonnet/5ca808f075931c5322193d4afd5a3370c824f810
+/usr/share/package-licenses/ksonnet/5d833085cd09e0a70fe9071b1f2edf6d31b91d45
+/usr/share/package-licenses/ksonnet/5e630aeef4ff3e9b29a46622496b3fbbf5d7fe56
+/usr/share/package-licenses/ksonnet/5feaf15b3fa7d2d226d811e5fcd49098a1ea520c
+/usr/share/package-licenses/ksonnet/6643b21ca08acb470f631647b8ded5a538a1ee26
+/usr/share/package-licenses/ksonnet/6b003b30f7a30a203efcf0307e47ea4fca894e6e
+/usr/share/package-licenses/ksonnet/76a37a42a06aa6e231383fb93d9161f074d5962b
+/usr/share/package-licenses/ksonnet/773bfa66739275c14ad854cdef4f550973fbaee6
+/usr/share/package-licenses/ksonnet/7b421b3d8f9fe9dc8158b5e6efed1c448605ba92
+/usr/share/package-licenses/ksonnet/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
+/usr/share/package-licenses/ksonnet/7f7a12bcfc16fab2522aa1a562fd3d2aee429d3b
+/usr/share/package-licenses/ksonnet/810612ee8c1872b7ee4dba34c090ebd8f7491aa1
+/usr/share/package-licenses/ksonnet/836ef1b46953afdb78ce3929bc6831ca83620b65
+/usr/share/package-licenses/ksonnet/87483fe9431794365787a1650194a441211dac98
+/usr/share/package-licenses/ksonnet/8758b52c623c08eff9cadbd0f0e1541085e9984d
+/usr/share/package-licenses/ksonnet/878e7d86573d6c8ff65d2eaab294734b3f4d3d81
+/usr/share/package-licenses/ksonnet/87a1773b9070fa0f9d4033df28f9bcba336279b1
+/usr/share/package-licenses/ksonnet/8a40bfb169d0050621b1dc706311e3fd62ec65eb
+/usr/share/package-licenses/ksonnet/9174f93c54ad0022bbb9b445480cfb6b4217226a
+/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
+/usr/share/package-licenses/ksonnet/92a74693f02c8e78dd90b2014c52bc35a95bab86
+/usr/share/package-licenses/ksonnet/979fd7d5c67073b265d96f584aac3de1c419b8e2
+/usr/share/package-licenses/ksonnet/9a06b8c36ca519c5a7c67f102bf5d03aae470fa1
+/usr/share/package-licenses/ksonnet/9b7d86786391d922ec95d85852f57f6868d8e16d
+/usr/share/package-licenses/ksonnet/9c1bedc0d42f24c24a1bd266f3ce101a4b0579fc
+/usr/share/package-licenses/ksonnet/9d0e87d9ac5974470fc21c575854718e8b6516be
+/usr/share/package-licenses/ksonnet/9d6e7962016b087c7c6c7b485f84aca70fe93242
+/usr/share/package-licenses/ksonnet/9f1b6690bcfc732123ae209c90c62f2ba80dfcb0
+/usr/share/package-licenses/ksonnet/9f288d8b22648404d58f00d5e7f6f0d746836182
+/usr/share/package-licenses/ksonnet/a0c1567b52d722c1db277d5c046f0f74a2d0cdb1
+/usr/share/package-licenses/ksonnet/a1c7852c717fed2c9a0284ed112ea66013230da6
+/usr/share/package-licenses/ksonnet/a1e7a3c2784eb9d439cdd9d6da08d1401196b957
+/usr/share/package-licenses/ksonnet/a71b5152bb7c0d188273009e050644a6788d4d4c
+/usr/share/package-licenses/ksonnet/a8993f4a51771a0333dbbc5b1c4395a2ccaa4d9f
+/usr/share/package-licenses/ksonnet/ad00ce7340d89dc13ccc59920ef75cb55af5b164
+/usr/share/package-licenses/ksonnet/b132e03c6b6bd85fbc2394f808acae8f5d0ebaf0
+/usr/share/package-licenses/ksonnet/b2e4520feb0f9b51ad373256b94c3faf4c1e6871
+/usr/share/package-licenses/ksonnet/b3c86ae465b21f7323059db335158b48187731c7
+/usr/share/package-licenses/ksonnet/b7a606730713ac061594edab33cf941704b4a95c
+/usr/share/package-licenses/ksonnet/bb8bbeae44ef2e1eb6f8fec601a6234d4c5a51f7
+/usr/share/package-licenses/ksonnet/c6821d75aac4a65fae7d56a425e304beb3689c26
+/usr/share/package-licenses/ksonnet/c700a8b9312d24bdc57570f7d6a131cf63d89016
+/usr/share/package-licenses/ksonnet/c7feacb4667f8c63c89e2eeeb9a913bd3ced8ac2
+/usr/share/package-licenses/ksonnet/cba29923f92249281f98723c1294f9b2546c50b0
+/usr/share/package-licenses/ksonnet/cc299c1fe1c186e7842662c4e23d4fa067262be1
+/usr/share/package-licenses/ksonnet/cd3e4d932cee20da681e6b3bee8139cb4f734034
+/usr/share/package-licenses/ksonnet/d676a57141ac47c27699fc8b03e1a2e59abb96ef
+/usr/share/package-licenses/ksonnet/d6a5f1ecaedd723c325a2063375b3517e808a2b5
+/usr/share/package-licenses/ksonnet/d9eee7661376514dccfc36e54c538dd2bdcd3535
+/usr/share/package-licenses/ksonnet/da34754c05d40ff81f91de8c1b85ea6e5503e21d
+/usr/share/package-licenses/ksonnet/e0805207f70fad080994fd9f55016f0bf56b933f
+/usr/share/package-licenses/ksonnet/e625f9555286c04d831ffbaf5b27a8668f1aa1a7
+/usr/share/package-licenses/ksonnet/ea2531724c168e1e53717622d1bf302554225f2b
+/usr/share/package-licenses/ksonnet/ec6b8f412493dc8f603dd5547e50922205432492
+/usr/share/package-licenses/ksonnet/ece3df1263c100f93c427face535a292723d38e7
+/usr/share/package-licenses/ksonnet/eecfc0c7e0930c6ba1ed0ff2d46a0a6fa0d16d6c
+/usr/share/package-licenses/ksonnet/f0524399083fa802c72bc733a5e12ed1342c650f
+/usr/share/package-licenses/ksonnet/fd6460234f122a19f21affb6d6885269340b9176
+/usr/share/package-licenses/ksonnet/fe475fbde1c0d4275b3a57960998c70605a9c860
+/usr/share/package-licenses/ksonnet/feb9285b75d0c82a47d32e7d4dc84eb02db9ee34

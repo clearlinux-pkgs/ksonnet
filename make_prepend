@@ -1,4 +1,4 @@
-export GOPATH=/go
-mkdir -p /go/src/github.com/ksonnet
-ln -s /builddir/build/BUILD/ksonnet-0.13.1 /go/src/github.com/ksonnet/ksonnet
-cd /go/src/github.com/ksonnet/ksonnet
+export GOPATH=$HOME/go
+mkdir -p $HOME/go/src/github.com/ksonnet
+ln -s $HOME/build/BUILD/ksonnet-0.13.1 $HOME/go/src/github.com/ksonnet/ksonnet
+cd $HOME/go/src/github.com/ksonnet/ksonnet

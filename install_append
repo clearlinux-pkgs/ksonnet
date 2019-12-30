@@ -1,2 +1,2 @@
 install -d %{buildroot}/usr/bin
-install -p -m 755 /go/bin/ks %{buildroot}/usr/bin/ks
+install -p -m 755 $HOME/go/bin/ks %{buildroot}/usr/bin/ks
