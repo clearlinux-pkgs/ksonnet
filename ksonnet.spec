@@ -4,7 +4,7 @@
 #
 Name     : ksonnet
 Version  : 0.13.1
-Release  : 2
+Release  : 3
 URL      : https://github.com/ksonnet/ksonnet/archive/v0.13.1.tar.gz
 Source0  : https://github.com/ksonnet/ksonnet/archive/v0.13.1.tar.gz
 Summary  : No detailed summary available
@@ -45,11 +45,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1577732537
+export SOURCE_DATE_EPOCH=1599767682
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 ## make_prepend content
 export GOPATH=$HOME/go
@@ -61,7 +61,7 @@ make  %{?_smp_mflags}  install
 
 
 %install
-export SOURCE_DATE_EPOCH=1577732537
+export SOURCE_DATE_EPOCH=1599767682
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ksonnet
 cp %{_builddir}/ksonnet-0.13.1/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/92170cdc034b2ff819323ff670d3b7266c8bffcd
@@ -205,6 +205,7 @@ cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/apiserver/LICENSE %{buildroot}/usr/
 cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/client-go/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/helm/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/e625f9555286c04d831ffbaf5b27a8668f1aa1a7
 cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kube-openapi/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/Godeps/LICENSES %{buildroot}/usr/share/package-licenses/ksonnet/3b5e9d7c1354cbaf8a40a7f39ee7a37ff047ad68
 cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/LICENSE %{buildroot}/usr/share/package-licenses/ksonnet/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/cluster/juju/layers/kubeapi-load-balancer/copyright %{buildroot}/usr/share/package-licenses/ksonnet/a0c1567b52d722c1db277d5c046f0f74a2d0cdb1
 cp %{_builddir}/ksonnet-0.13.1/vendor/k8s.io/kubernetes/cluster/juju/layers/kubernetes-master/copyright %{buildroot}/usr/share/package-licenses/ksonnet/56e79701db832ea0a78069c9ff7204c6e5d4499d
@@ -262,6 +263,7 @@ install -p -m 755 $HOME/go/bin/ks %{buildroot}/usr/bin/ks
 /usr/share/package-licenses/ksonnet/308c47a3ea356402d2d14241da9a9f64cf404008
 /usr/share/package-licenses/ksonnet/3110e55750143a84918d7423febc9c83a55bc28c
 /usr/share/package-licenses/ksonnet/33cd8e150548e595fbe201c6ca9df582976e71db
+/usr/share/package-licenses/ksonnet/3b5e9d7c1354cbaf8a40a7f39ee7a37ff047ad68
 /usr/share/package-licenses/ksonnet/43c02fe811dfc96363cdd8ec756ecc728ab845a9
 /usr/share/package-licenses/ksonnet/48c378c760084a10ecfdab86c88abf1707b06741
 /usr/share/package-licenses/ksonnet/523489384296f403da31edf8edf6f9023d328517
